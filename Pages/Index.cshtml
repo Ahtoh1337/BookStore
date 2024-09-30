@@ -10,4 +10,12 @@
     {
         <p><a asp-action="Index" asp-controller="Manage">Manage site</a></p>
     }
+    @if (User.IsInRole("Finance"))
+    {
+        <p><a asp-page="Static">Get financial report</a></p>
+    }
+    @if (User.IsInRole("Security"))
+    {
+        <p><a asp-page="Static">Get security report</a></p>
+    }
 </div>
