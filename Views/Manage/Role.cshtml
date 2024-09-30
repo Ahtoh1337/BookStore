@@ -1,0 +1,16 @@
+@model RoleViewModel
+@{
+    ViewData["Title"] = Model?.Role.Name;
+}
+
+<div>
+    Id: @Model?.Role.Id
+</div>
+<div>
+    Name: @Model?.Role.Name
+</div>
+<br />
+<div>
+    Users in this Role:
+    <partial name="_UserListPartial" model="Model?.RelatedUsers" />
+</div>

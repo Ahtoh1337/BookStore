@@ -1,0 +1,44 @@
+@model UserViewModel
+@{
+    ViewData["Title"] = Model?.User.UserName;
+}
+
+<form asp-action="Users" method="post">
+    <div>Id: @Model?.User.Id</div>
+    <input asp-for="User.Id" value="@Model?.User?.Id" hidden />
+    <div>
+        <label>Username: <input asp-for="User.UserName" value="@Model?.User?.UserName" /></label>
+    </div>
+    <div>
+        <label>Email: <input asp-for="User.Email" value="@Model?.User?.Email" /></label>
+    </div>
+    <div>
+        <label>Phone: <input asp-for="User.PhoneNumber" value="@Model?.User?.PhoneNumber" /></label>
+    </div>
+    <br />
+    <button type="submit">Submit changes</button>
+</form>
+<div>
+    Roles:
+    <table>
+        @foreach (var pair in Model?.RelatedRoles ?? [])
+        {
+            <tr>
+                <td>
+                    <a asp-action="Roles" asp-route-id="@pair.Key.Id">@pair.Key.Name</a>
+                </td>
+                <td>
+                    <a asp-action="ToggleRole" asp-route-userId="@Model.User.Id" asp-route-roleId="@pair.Key.Id">
+                        @pair.Value
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <form asp-action="DeleteUser" method="get">
+        <input name="id" value="@Model.User.Id" hidden>
+        <button type="submit">Delete user</button>
+    </form>
+</div>

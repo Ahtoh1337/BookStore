@@ -1,0 +1,7 @@
+@model IEnumerable<IdentityUser>
+<ul>
+    @foreach (var user in Model)
+    {
+        <li><a asp-action="Users" asp-route-id="@user.Id">@user.UserName</a></li>
+    }
+</ul>

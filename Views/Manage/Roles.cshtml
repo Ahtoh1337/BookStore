@@ -1,10 +1,10 @@
-@model IEnumerable<string>
+@model IEnumerable<IdentityRole>
 @{
     ViewData["Title"] = "Roles";
 }
 <ul>
-    @foreach (string role in Model)
+    @foreach (var role in Model)
     {
-        <li>@role</li>
+        <li><a asp-action="Roles" asp-route-id="@role.Id">@role.Name</a></li>
     }
 </ul>
