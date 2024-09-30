@@ -1,0 +1,10 @@
+@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Roles";
+}
+<ul>
+    @foreach (string role in Model)
+    {
+        <li>@role</li>
+    }
+</ul>
