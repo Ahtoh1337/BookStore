@@ -1,0 +1,18 @@
+@model Book
+@{
+    ViewData["Title"] = Model?.Title;
+}
+<h1>@Model?.Title</h1>
+<h5>
+    By:
+    @if (Model.Authors.Count() == 0)
+    {
+        <span>Unknown Author</span>
+    } else {
+        <span>@string.Join(", ", Model.Authors.Select(a => a?.Name))</span>
+    }
+</h5>
+<p>@Model?.Description</p>
+<div>
+    Genres: @string.Join(", ", Model.Genres.Select(a => a?.Name))
+</div>

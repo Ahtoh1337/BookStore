@@ -1,6 +1,4 @@
-﻿@page
-@model IndexModel
-@{
+﻿@{
     ViewData["Title"] = "Home page";
 }
 
@@ -12,10 +10,10 @@
     }
     @if (User.IsInRole("Finance"))
     {
-        <p><a asp-page="Static">Get financial report</a></p>
+        <p><a asp-page="/Static">Get financial report</a></p>
     }
     @if (User.IsInRole("Security"))
     {
-        <p><a asp-page="Static">Get security report</a></p>
+        <p><a asp-page="/Static">Get security report</a></p>
     }
 </div>

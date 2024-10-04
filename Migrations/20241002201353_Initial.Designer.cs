@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240929180633_initial")]
-    partial class initial
+    [Migration("20241002201353_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,12 @@ namespace BookStore.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("DECIMAL(7, 2)");
 
+                    b.Property<int>("PublishedYear")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Publisher")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
@@ -99,33 +105,6 @@ namespace BookStore.Migrations
                     b.HasKey("GenreId");
 
                     b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            GenreId = 1,
-                            Name = "Classic"
-                        },
-                        new
-                        {
-                            GenreId = 2,
-                            Name = "Poetry"
-                        },
-                        new
-                        {
-                            GenreId = 3,
-                            Name = "Science"
-                        },
-                        new
-                        {
-                            GenreId = 4,
-                            Name = "Programming"
-                        },
-                        new
-                        {
-                            GenreId = 5,
-                            Name = "For Kids"
-                        });
                 });
 
             modelBuilder.Entity("BookStore.Models.UserBookRating", b =>

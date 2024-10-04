@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BookStore.Pages;
 
-[Authorize(Roles = "Finance,Security")]
+[Authorize(Roles = "Admin,Finance,Security")]
 public class StaticModel : PageModel
 {
     

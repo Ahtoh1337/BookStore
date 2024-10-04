@@ -1,0 +1,28 @@
+@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Books";
+}
+<h1>Books</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author(s)</th>
+            <th>Genre(s)</th>
+            <th>Publisher</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td><a asp-action="Index" asp-route-id="@book.BookId">@book?.Title</a></td>
+                <td>@string.Join(", ", book.Authors.Select(a => a?.Name))</td>
+                <td>@string.Join(", ", book.Genres.Select(a => a?.Name))</td>
+                <td>@book?.Publisher</td>
+                <td>@book.Price.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

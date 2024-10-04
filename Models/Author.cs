@@ -6,5 +6,5 @@ public class Author
     public string? Name { get; set; }
     public string? Description { get; set; }
 
-    public IEnumerable<Book> AuthoredBooks { get; set; } = Enumerable.Empty<Book>();
+    public ICollection<Book> AuthoredBooks { get; set; } = new List<Book>();
 }

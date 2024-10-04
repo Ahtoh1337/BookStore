@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace BookStore.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,7 +72,9 @@ namespace BookStore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Price = table.Column<decimal>(type: "DECIMAL(7, 2)", nullable: false)
+                    Price = table.Column<decimal>(type: "DECIMAL(7, 2)", nullable: false),
+                    PublishedYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Publisher = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -271,18 +271,6 @@ namespace BookStore.Migrations
                         principalTable: "Genres",
                         principalColumn: "GenreId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Genres",
-                columns: new[] { "GenreId", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Classic" },
-                    { 2, "Poetry" },
-                    { 3, "Science" },
-                    { 4, "Programming" },
-                    { 5, "For Kids" }
                 });
 
             migrationBuilder.CreateIndex(

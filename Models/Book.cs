@@ -6,8 +6,10 @@ public class Book
     public string? Title { get; set; }
     public string? Description { get; set; }
     public decimal Price { get; set; }
+    public int PublishedYear { get; set; }
+    public string? Publisher { get; set; }
 
-    public IEnumerable<Author> Authors { get; set; } = Enumerable.Empty<Author>();
-    public IEnumerable<Genre> Genres { get; set; } = Enumerable.Empty<Genre>();
-    public IEnumerable<UserBookRating> Ratings { get; set; } = Enumerable.Empty<UserBookRating>();
+    public ICollection<Author> Authors { get; set; } = new List<Author>();
+    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+    public ICollection<UserBookRating> Ratings { get; set; } = new List<UserBookRating>();
 }
