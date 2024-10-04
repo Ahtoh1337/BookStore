@@ -1,0 +1,22 @@
+@model Dictionary<Genre, int>
+@{
+    ViewData["Title"] = "Genres";
+}
+<h1>Genres</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Books</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pair in Model)
+        {
+            <tr>
+                <td><a asp-action="Index" asp-route-id="@pair.Key.GenreId">@pair.Key?.Name</a></td>
+                <td>@pair.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
