@@ -7,12 +7,40 @@
     By:
     @if (Model.Authors.Count() == 0)
     {
-        <span>Unknown Author</span>
-    } else {
-        <span>@string.Join(", ", Model.Authors.Select(a => a?.Name))</span>
+        <span>Unknown Author(s)</span>
+    }
+    else
+    {
+        int a = Model.Authors.Count;
+        foreach (var author in Model.Authors)
+        {
+            <a asp-action="Item" asp-controller="Authors" asp-route-id="@author.AuthorId">@author.Name</a>
+            @if (a-- <= 1)
+            {
+                @:.
+            }
+            else
+            {
+                @:,
+            }
+        }
     }
 </h5>
 <p>@Model?.Description</p>
 <div>
-    Genres: @string.Join(", ", Model.Genres.Select(a => a?.Name))
+    Genres: @{
+        int g = Model.Genres.Count;
+        foreach (var genre in Model.Genres)
+        {
+            <a asp-action="Item" asp-controller="Genres" asp-route-id="@genre.GenreId">@genre.Name</a>
+            @if (g-- <= 1)
+            {
+                @:.
+            }
+            else
+            {
+                @:,
+            }
+        }
+    }
 </div>

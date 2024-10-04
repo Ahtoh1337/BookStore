@@ -17,7 +17,7 @@
         @foreach (var book in Model)
         {
             <tr>
-                <td><a asp-action="Index" asp-route-id="@book.BookId">@book?.Title</a></td>
+                <td><a asp-action="Item" asp-route-id="@book.BookId">@book?.Title</a></td>
                 <td>@string.Join(", ", book.Authors.Select(a => a?.Name))</td>
                 <td>@string.Join(", ", book.Genres.Select(a => a?.Name))</td>
                 <td>"@book?.Publisher" (@book?.PublishedYear)</td>

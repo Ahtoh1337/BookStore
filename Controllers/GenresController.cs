@@ -23,8 +23,8 @@ public class GenresController : Controller
         return View(genres);
     }
 
-    [HttpGet("[controller]/{id}")]
-    public IActionResult Index(int id)
+    [HttpGet("[controller]/[action]/{id}")]
+    public IActionResult Item(int id)
     {
         var genre = _dbContext.Genres.Include(g => g.Books).FirstOrDefault(g => g.GenreId == id);
 

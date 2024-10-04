@@ -1,0 +1,22 @@
+@model IEnumerable<Author>
+@{
+    ViewData["Title"] = "Authors";
+}
+<h1>Authors</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Books</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td><a asp-action="Item" asp-route-id="@author.AuthorId">@author.Name</a></td>
+                <td>@author.AuthoredBooks.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

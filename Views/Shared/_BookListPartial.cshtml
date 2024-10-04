@@ -12,7 +12,7 @@
         @foreach (var book in Model)
         {
             <tr>
-                <td><a asp-action="Index" asp-controller="Books" asp-route-id="@book.BookId">@book?.Title</a></td>
+                <td><a asp-action="Item" asp-controller="Books" asp-route-id="@book.BookId">@book?.Title</a></td>
                 <td>"@book?.Publisher" (@book?.PublishedYear)</td>
                 <td>@book.Price.ToString("C")</td>
             </tr>

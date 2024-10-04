@@ -14,7 +14,7 @@
         @foreach (var pair in Model)
         {
             <tr>
-                <td><a asp-action="Index" asp-route-id="@pair.Key.GenreId">@pair.Key?.Name</a></td>
+                <td><a asp-action="Item" asp-route-id="@pair.Key.GenreId">@pair.Key?.Name</a></td>
                 <td>@pair.Value</td>
             </tr>
         }

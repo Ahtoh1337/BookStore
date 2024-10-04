@@ -18,8 +18,8 @@ public class BooksController : Controller
         return View(_dbContext.Books.Include(b => b.Authors).Include(b => b.Genres));
     }
 
-    [HttpGet("[controller]/{id}")]
-    public async Task<IActionResult> Index(int id)
+    [HttpGet("[controller]/[action]/{id}")]
+    public async Task<IActionResult> Item(int id)
     {
         var book = await _dbContext.Books
             .Include(b => b.Authors)
