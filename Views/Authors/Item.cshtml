@@ -1,0 +1,12 @@
+@model Author
+@{
+    ViewData["Title"] = Model?.Name;
+}
+<h1>@Model?.Name</h1>
+<p>@Model?.Description</p>
+<h5>Authored Books: @Model?.AuthoredBooks.Count</h5>
+<partial name="_BookListPartial" model="Model.AuthoredBooks" />
+@if (User.IsInRole("Admin") || User.IsInRole("Finance") || User.IsInRole("Marketing"))
+{
+    <div><a asp-action="Delete" asp-route-id="@Model.AuthorId">Delete</a></div>
+}

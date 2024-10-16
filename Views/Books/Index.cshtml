@@ -2,8 +2,14 @@
 @{
     ViewData["Title"] = "Books";
 }
-<h1>Books</h1>
-<table class="table">
+<h1>
+    Books
+    @if (User.IsInRole("Admin") || User.IsInRole("Finance") || User.IsInRole("Marketing"))
+    {
+        <a asp-action="Add">Add</a>
+    }
+</h1>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Title</th>
@@ -16,10 +22,31 @@
     <tbody>
         @foreach (var book in Model)
         {
+            int max = 40;
+            string authors = string.Join(", ", book.Authors.Select(a => a?.Name));
+            string genres = string.Join(", ", book.Genres.Select(a => a?.Name));
             <tr>
                 <td><a asp-action="Item" asp-route-id="@book.BookId">@book?.Title</a></td>
-                <td>@string.Join(", ", book.Authors.Select(a => a?.Name))</td>
-                <td>@string.Join(", ", book.Genres.Select(a => a?.Name))</td>
+                <td>
+                    @if (authors.Length > max)
+                    {
+                        <i>Various Authors</i>
+                    }
+                    else
+                    {
+                        @:@authors
+                    }
+                </td>
+                <td>
+                    @if (genres.Length > max)
+                    {
+                        <i>Various Genres</i>
+                    }
+                    else
+                    {
+                        @:@genres
+                    }
+                </td>
                 <td>"@book?.Publisher" (@book?.PublishedYear)</td>
                 <td>@book.Price.ToString("C")</td>
             </tr>

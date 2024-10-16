@@ -1,8 +1,0 @@
-@model Author
-@{
-    ViewData["Title"] = Model?.Name;
-}
-<h1>@Model?.Name</h1>
-<p>@Model?.Description</p>
-<h5>Authored Books: @Model?.AuthoredBooks.Count</h5>
-<partial name="_BookListPartial" model="Model.AuthoredBooks" />

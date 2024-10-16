@@ -44,3 +44,7 @@
         }
     }
 </div>
+@if (User.IsInRole("Admin") || User.IsInRole("Finance") || User.IsInRole("Marketing"))
+{
+    <div><a asp-action="Delete" asp-route-id="@Model.BookId">Delete</a></div>
+}

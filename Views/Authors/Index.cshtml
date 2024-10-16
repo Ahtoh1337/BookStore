@@ -2,8 +2,14 @@
 @{
     ViewData["Title"] = "Authors";
 }
-<h1>Authors</h1>
-<table class="table">
+<h1>
+    Authors
+    @if (User.IsInRole("Admin") || User.IsInRole("Finance") || User.IsInRole("Marketing"))
+    {
+        <a asp-action="Add">Add</a>
+    }
+</h1>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Name</th>
@@ -11,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var author in Model)
+        @foreach (var author in Model.OrderByDescending(a => a.AuthoredBooks.Count))
         {
             <tr>
                 <td><a asp-action="Item" asp-route-id="@author.AuthorId">@author.Name</a></td>

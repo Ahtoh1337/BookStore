@@ -1,7 +1,0 @@
-@model Genre
-@{
-    ViewData["Title"] = Model?.Name;
-}
-<h1>@Model?.Name</h1>
-<h5>Books in this genre: @Model.Books.Count</h5>
-<partial name="_BookListPartial" model="Model.Books" />

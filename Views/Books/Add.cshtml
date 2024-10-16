@@ -1,0 +1,39 @@
+@model BookViewModel
+@{
+    ViewData["Title"] = "Add Book";
+}
+<h2>New Book</h2>
+<form asp-action="Add" method="post">
+    <div><label for="title">Title:</label></div>
+    <div><input class="w-25" id="title" maxlength="100" asp-for="Title" /></div>
+    <div><span asp-validation-for="Title"></span></div>
+
+    <div><label for="desc">Description:</label></div>
+    <div><textarea class="w-50" rows="4" id="desc" asp-for="Description"></textarea></div>
+    <div><span asp-validation-for="Description"></span></div>
+
+    <div><label for="price">Price:</label></div>
+    <div><input type="number" id="price" asp-for="Price" /></div>
+    <div><span asp-validation-for="Price"></span></div>
+
+    <div><label for="pr">Publisher:</label></div>
+    <div><input id="pr" asp-for="Publisher" /></div>
+    <div><span asp-validation-for="Publisher"></span></div>
+
+    <div><label for="pYear">Published Year:</label></div>
+    <div><input type="number" id="pYear" asp-for="PublishedYear" /></div>
+    <div><span asp-validation-for="PublishedYear"></span></div>
+
+    <div><label for="authors">Authors:</label></div>
+    <div>
+        <select id="authors" asp-for="AuthorIds" asp-items="@ViewBag.Authors"></select>
+    </div>
+    <div><span asp-validation-for="AuthorIds"></span></div>
+
+    <div><label for="genres">Genres:</label></div>
+    <div>
+        <select id="genres" asp-for="GenreIds" asp-items="@ViewBag.Genres"></select>
+    </div>
+    <div><span asp-validation-for="GenreIds"></span></div>
+    <button type="submit">Submit</button>
+</form>

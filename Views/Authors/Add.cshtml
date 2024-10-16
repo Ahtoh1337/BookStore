@@ -1,0 +1,14 @@
+@model AuthorViewModel
+@{
+    ViewData["Title"] = "Add Author";
+}
+<h2>New Author</h2>
+<form asp-action="Add" method="post">
+    <div><label for="name">Name:</label></div>
+    <div><input class="w-25" id="name" asp-for="Name" minlength="5" maxlength="50" /></div>
+    <div><span asp-validation-for="Name"></span></div>
+    <div><label for="desc">Description:</label></div>
+    <div><textarea class="w-50" rows="4" id="desc" asp-for="Description" maxlength="1000"></textarea></div>
+    <div><span asp-validation-for="Description"></span></div>
+    <button type="submit">Submit</button>
+</form>
