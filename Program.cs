@@ -60,6 +60,8 @@ app.MapRazorPages();
 app.MapControllers();
 app.MapDefaultControllerRoute();
 
+app.MapFallbackToFile("index.html");
+
 // Додавання сутностей до бази даних при першому запуску програми,
 // зокрема ролі: Admin, Finance, Security, Marketing, User,
 // акаунт адміністратора та декілька книг, авторів та жанрів
