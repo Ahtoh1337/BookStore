@@ -8,7 +8,7 @@ namespace BookStore.Controllers.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class GenresController : ControllerBase
 {
     private ApplicationContext _dbContext;

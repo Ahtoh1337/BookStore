@@ -1,43 +1,72 @@
-import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import React, { useContext, useState } from "react";
+import {
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarText,
+  NavbarToggler,
+  NavItem,
+  NavLink,
+} from "reactstrap";
+import { Link } from "react-router-dom";
+import "./NavMenu.css";
+import { UserContext } from "../App";
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+export function NavMenu() {
+  {
+    const [collapsed, setCollapsed] = useState(true);
+    const userContext = useContext(UserContext);
 
-  constructor (props) {
-    super(props);
-
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
-  }
-
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
-
-  render() {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">BookStore</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+        <Navbar
+          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
+          container
+          light
+        >
+          <NavbarBrand tag={Link} to="/">
+            BookStore
+          </NavbarBrand>
+          {userContext.currentUser && (
+            <NavbarText>Welcome, {userContext.currentUser}</NavbarText>
+          )}
+          <NavbarToggler
+            onClick={() => setCollapsed(!collapsed)}
+            className="mr-2"
+          />
+          <Collapse
+            className="d-sm-inline-flex flex-sm-row-reverse"
+            isOpen={collapsed}
+            navbar
+          >
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/">
+                  Home
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                {userContext.currentUser ? (
+                  <NavLink
+                    tag={Link}
+                    className="text-dark"
+                    onClick={userContext.logout}
+                  >
+                    Sign Out
+                  </NavLink>
+                ) : (
+                  <NavLink tag={Link} className="text-dark" to="/sign-in">
+                    Sign In
+                  </NavLink>
+                )}
               </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-              </NavItem>
+              {!userContext.currentUser && (
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/sign-up">
+                    Sign Up
+                  </NavLink>
+                </NavItem>
+              )}
             </ul>
           </Collapse>
         </Navbar>
