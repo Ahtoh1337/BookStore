@@ -1,3 +1,5 @@
+using BookStore.Models.Api;
+
 namespace BookStore.Models;
 
 public class Book
@@ -11,5 +13,21 @@ public class Book
 
     public ICollection<Author> Authors { get; set; } = new List<Author>();
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
-    public ICollection<UserBookRating> Ratings { get; set; } = new List<UserBookRating>();
+    public ICollection<UserBookPurchase> Ratings { get; set; } = new List<UserBookPurchase>();
+
+
+    public BookApiTarget ToApiTarget()
+    {
+        return new BookApiTarget()
+        {
+            BookId = BookId,
+            Title = Title,
+            Description = Description,
+            Price = Price,
+            PublishedYear = PublishedYear,
+            Publisher = Publisher,
+            Authors = Authors.Select(a => a.AuthorId).ToArray(),
+            Genres = Genres.Select(g => g.GenreId).ToArray()
+        };
+    }
 }

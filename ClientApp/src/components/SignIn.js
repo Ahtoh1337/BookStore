@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
-function SignIn({ props }) {
+function SignIn() {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -20,14 +20,10 @@ function SignIn({ props }) {
       body: JSON.stringify(userData),
     });
 
-    console.log(`${response.status} ${response.statusText}`);
-
     const body = await response.json();
 
-    console.log(body);
-
     if (response.ok) {
-      userContext.login(userData.email, body.accessToken);
+      userContext.login(userData.email, body.accessToken, body.refreshToken);
       navigate("/");
     } else {
       setMessage(`Incorrect email or password. (${response.status})`);
@@ -47,7 +43,7 @@ function SignIn({ props }) {
                 setUserData({ ...userData, email: e.currentTarget.value })
               }
             />
-          </label>
+          </label><br />
           <label>
             Password:
             <input

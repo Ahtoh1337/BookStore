@@ -104,7 +104,7 @@ namespace BookStore.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("BookStore.Models.UserBookRating", b =>
+            modelBuilder.Entity("BookStore.Models.UserBookPurchase", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
@@ -112,14 +112,14 @@ namespace BookStore.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<byte>("Rating")
+                    b.Property<int?>("Rating")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("UserId", "BookId");
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("UserBookRatings");
+                    b.ToTable("UserBookPurchases");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -261,11 +261,9 @@ namespace BookStore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -303,11 +301,9 @@ namespace BookStore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -348,7 +344,7 @@ namespace BookStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookStore.Models.UserBookRating", b =>
+            modelBuilder.Entity("BookStore.Models.UserBookPurchase", b =>
                 {
                     b.HasOne("BookStore.Models.Book", "Book")
                         .WithMany("Ratings")

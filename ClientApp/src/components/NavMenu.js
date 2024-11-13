@@ -41,28 +41,46 @@ export function NavMenu() {
           >
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">
-                  Home
+                <NavLink tag={Link} className="text-dark" to="/books">
+                  Books
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/authors">
+                  Authors
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/genres">
+                  Genres
                 </NavLink>
               </NavItem>
               <NavItem>
                 {userContext.currentUser ? (
                   <NavLink
                     tag={Link}
-                    className="text-dark"
+                    className="text-dark fw-bold"
                     onClick={userContext.logout}
                   >
                     Sign Out
                   </NavLink>
                 ) : (
-                  <NavLink tag={Link} className="text-dark" to="/sign-in">
+                  <NavLink
+                    tag={Link}
+                    className="text-dark fw-bold"
+                    to="/sign-in"
+                  >
                     Sign In
                   </NavLink>
                 )}
               </NavItem>
               {!userContext.currentUser && (
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/sign-up">
+                  <NavLink
+                    tag={Link}
+                    className="text-dark fw-bold"
+                    to="/sign-up"
+                  >
                     Sign Up
                   </NavLink>
                 </NavItem>

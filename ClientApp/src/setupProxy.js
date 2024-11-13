@@ -9,7 +9,8 @@ const context =  [
   "/login",
   "/register",
   "/logout",
-  "/api"
+  "/api",
+  "/refresh"
 ];
 
 module.exports = function(app) {

@@ -140,8 +140,8 @@ namespace BookStore.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -185,8 +185,8 @@ namespace BookStore.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -225,24 +225,24 @@ namespace BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserBookRatings",
+                name: "UserBookPurchases",
                 columns: table => new
                 {
                     BookId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    Rating = table.Column<byte>(type: "INTEGER", nullable: false)
+                    Rating = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBookRatings", x => new { x.UserId, x.BookId });
+                    table.PrimaryKey("PK_UserBookPurchases", x => new { x.UserId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_UserBookRatings_AspNetUsers_UserId",
+                        name: "FK_UserBookPurchases_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserBookRatings_Books_BookId",
+                        name: "FK_UserBookPurchases_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "BookId",
@@ -321,8 +321,8 @@ namespace BookStore.Migrations
                 column: "GenresGenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserBookRatings_BookId",
-                table: "UserBookRatings",
+                name: "IX_UserBookPurchases_BookId",
+                table: "UserBookPurchases",
                 column: "BookId");
         }
 
@@ -351,7 +351,7 @@ namespace BookStore.Migrations
                 name: "BookGenre");
 
             migrationBuilder.DropTable(
-                name: "UserBookRatings");
+                name: "UserBookPurchases");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

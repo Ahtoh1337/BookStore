@@ -14,13 +14,13 @@ public class ApplicationContext : IdentityDbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Author> Authors { get; set; }
-    public DbSet<UserBookRating> UserBookRatings { get; set; }
+    public DbSet<UserBookPurchase> UserBookPurchases { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<UserBookRating>().HasKey(o => new { o.UserId, o.BookId });
+        builder.Entity<UserBookPurchase>().HasKey(o => new { o.UserId, o.BookId });
 
         builder.Entity<Book>()
             .Property(b => b.Price)

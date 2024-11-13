@@ -8,7 +8,6 @@ namespace BookStore.Controllers.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class AuthorsController : ControllerBase
 {
     private ApplicationContext _dbContext;
@@ -22,7 +21,14 @@ public class AuthorsController : ControllerBase
     public IActionResult GetAuthors()
     {
         return Ok(_dbContext.Authors
-            .Select(a => new AuthorApiTarget() { AuthorId = a.AuthorId, Name = a.Name, Description = a.Description })
+            .Include(a => a.AuthoredBooks)
+            .Select(a => new AuthorApiTarget()
+            {
+                AuthorId = a.AuthorId,
+                Name = a.Name,
+                Description = a.Description,
+                AuthoredBooks = a.AuthoredBooks.Select(b => b.BookId).ToArray()
+            })
             .ToList());
     }
 
@@ -41,6 +47,7 @@ public class AuthorsController : ControllerBase
     }
 
 
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpPost]
     public IActionResult AddAuthor(AuthorApiTarget target)
     {
@@ -60,6 +67,7 @@ public class AuthorsController : ControllerBase
     }
 
 
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpPut]
     public IActionResult EditAuthor(AuthorApiTarget target)
     {
@@ -86,10 +94,13 @@ public class AuthorsController : ControllerBase
     }
 
 
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpDelete("{id:int}")]
     public IActionResult DeleteAuthor(int id)
     {
-        var author = _dbContext.Authors.Find(id);
+        var author = _dbContext.Authors
+            .Include(a => a.AuthoredBooks)
+            .FirstOrDefault(a => a.AuthorId == id);
 
         if (author is not null)
         {

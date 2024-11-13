@@ -15,7 +15,7 @@ public class Seed
         var usermgr = provider.GetRequiredService<UserManager<IdentityUser>>();
         if (await usermgr.FindByNameAsync("admin") is null)
         {
-            var admin = new IdentityUser() { UserName = "admin", Email = "admin@mail.com" };
+            var admin = new IdentityUser() { UserName = "admin@mail.com", Email = "admin@mail.com" };
             await usermgr.CreateAsync(admin, "admin12345");
             await usermgr.AddToRoleAsync(admin, "Admin");
         }

@@ -8,7 +8,6 @@ namespace BookStore.Controllers.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
 public class GenresController : ControllerBase
 {
     private ApplicationContext _dbContext;
@@ -19,10 +18,18 @@ public class GenresController : ControllerBase
     }
 
 
+    [Authorize]
     [HttpGet]
     public IActionResult GetGenres()
     {
-        return Ok(_dbContext.Genres.Select(g => new GenreApiTarget() { Name = g.Name, GenreId = g.GenreId }).ToList());
+        return Ok(_dbContext.Genres
+            .Include(g => g.Books)
+            .Select(g => new GenreApiTarget()
+            {
+                Name = g.Name,
+                GenreId = g.GenreId,
+                Books = g.Books.Select(b => b.BookId).ToArray()
+            }).ToList());
     }
 
 
@@ -32,11 +39,16 @@ public class GenresController : ControllerBase
         return Ok(_dbContext.Genres
         .Include(g => g.Books)
         .AsSplitQuery()
-        .Select(g => new GenreApiTarget() { GenreId = g.GenreId, Name = g.Name, Books = g.Books.Select(b => b.BookId).ToArray() })
-        .FirstOrDefault(g => g.GenreId == id));
+        .Select(g => new GenreApiTarget()
+        {
+            GenreId = g.GenreId,
+            Name = g.Name,
+            Books = g.Books.Select(b => b.BookId).ToArray()
+        }).FirstOrDefault(g => g.GenreId == id));
     }
 
 
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpPost]
     public IActionResult AddGenre(GenreApiTarget target)
     {
@@ -47,13 +59,14 @@ public class GenresController : ControllerBase
         };
         _dbContext.Genres.Add(genre);
         _dbContext.SaveChanges();
-        
+
         target.GenreId = genre.GenreId;
         target.Books = genre.Books.Select(b => b.BookId).ToArray();
         return Ok(target);
     }
 
 
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpPut]
     public IActionResult EditGenre(GenreApiTarget target)
     {
@@ -80,10 +93,12 @@ public class GenresController : ControllerBase
         return NotFound();
     }
 
+
+    [Authorize(Roles = "Admin,Finance,Marketing")]
     [HttpDelete("{id:int}")]
     public IActionResult DeleteGenre(int id)
     {
-        var genre = _dbContext.Genres.Find(id);
+        var genre = _dbContext.Genres.Include(g => g.Books).FirstOrDefault(g => g.GenreId == id);
 
         if (genre is not null)
         {

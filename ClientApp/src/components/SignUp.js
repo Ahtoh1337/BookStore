@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({ props }) {
+export default function SignUp() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -16,7 +16,7 @@ export default function SignUp({ props }) {
     e.preventDefault();
 
     if (userData.password != userData.confirmPassword) {
-      setMessage("Passwords don't match.");
+      setMessage({ noMatch: "Passwords don't match." });
       return;
     }
 
@@ -37,7 +37,7 @@ export default function SignUp({ props }) {
 
     if (!registerResponse.ok) {
       const registerData = await registerResponse.json();
-      setMessage(JSON.stringify(registerData.errors));
+      setMessage(registerData.errors);
       return;
     }
 
@@ -54,10 +54,16 @@ export default function SignUp({ props }) {
     const loginData = await loginResponse.json();
 
     if (loginResponse.ok) {
-      userContext.login(userData.email, loginData.accessToken);
+      userContext.login(
+        userData.email,
+        loginData.accessToken,
+        loginData.refreshToken
+      );
       navigate("/");
     } else {
-      setMessage(`Incorrect email or password. (${loginResponse.status})`);
+      setMessage({
+        other: `Incorrect email or password. (${loginResponse.status})`,
+      });
     }
   }
 
@@ -74,6 +80,7 @@ export default function SignUp({ props }) {
             }
           />
         </label>
+        <br />
         <label>
           Password:
           <input
@@ -84,6 +91,7 @@ export default function SignUp({ props }) {
             }
           />
         </label>
+        <br />
         <label>
           Confirm Password:
           <input
@@ -97,9 +105,14 @@ export default function SignUp({ props }) {
             }
           />
         </label>
+        <br />
         <button type="submit">Sign Up</button>
       </form>
-      <div>{message}</div>
+      <ul>
+        {Object.keys(message).map((m) => (
+          <li key={m}>{message[m]}</li>
+        ))}
+      </ul>
     </div>
   );
 }
