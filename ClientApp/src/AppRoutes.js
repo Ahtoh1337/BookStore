@@ -5,6 +5,7 @@ import BookList from "./components/BookList";
 import Genre from "./components/Genre";
 import GenreList from "./components/GenreList";
 import { Home } from "./components/Home";
+import PurchasedBooks from "./components/PurchasedBooks";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
@@ -45,6 +46,10 @@ const AppRoutes = [
     path: "/authors/:authorId",
     element: <Author />,
   },
+  {
+    path: "user/:email",
+    element: <PurchasedBooks />
+  }
 ];
 
 export default AppRoutes;

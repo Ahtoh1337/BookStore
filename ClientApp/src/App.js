@@ -30,7 +30,7 @@ export default function App({ props }) {
   }
 
   function logout() {
-    navigate(0);
+    navigate("/");
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
     Cookies.remove("userName");

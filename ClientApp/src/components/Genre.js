@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../App";
+import BookTable from "./BookTable";
 
 function Genre() {
   const [data, setData] = useState({ state: "loading" });
@@ -52,26 +53,7 @@ function Genre() {
         <>
           <h1>{data.genre.name}</h1>
           <h3>Books in this genre: {data.genre.books.length}</h3>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Publisher</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.genre.books.map((b) => (
-                <tr key={b.bookId}>
-                  <td>
-                    <Link to={`/books/${b.bookId}`}>{b.title}</Link>
-                  </td>
-                  <td>{b.price} UAH</td>
-                  <td>"{b.publisher}"</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <BookTable books={data.genre.books}/>
         </>
       )}
     </>

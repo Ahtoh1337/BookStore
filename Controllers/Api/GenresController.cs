@@ -18,7 +18,6 @@ public class GenresController : ControllerBase
     }
 
 
-    [Authorize]
     [HttpGet]
     public IActionResult GetGenres()
     {

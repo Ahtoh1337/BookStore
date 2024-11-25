@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers;
 
-public class GenresController : Controller
+public class LegacyGenresController : Controller
 {
     private ApplicationContext _dbContext;
 
-    public GenresController(ApplicationContext dbContext)
+    public LegacyGenresController(ApplicationContext dbContext)
     {
         _dbContext = dbContext;
     }

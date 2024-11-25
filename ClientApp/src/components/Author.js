@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../App";
+import BookTable from "./BookTable";
 
 function Author() {
   const [data, setData] = useState({ state: "loading" });
@@ -53,26 +54,7 @@ function Author() {
           <h1>{data.author.name}</h1>
           <p>{data.author.description}</p>
           <h3>Authored books:</h3>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Publisher</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.author.authoredBooks.map((b) => (
-                <tr key={b.bookId}>
-                  <td>
-                    <Link to={`/books/${b.bookId}`}>{b.title}</Link>
-                  </td>
-                  <td>{b.price} UAH</td>
-                  <td>"{b.publisher}"</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <BookTable books={data.author.authoredBooks} />
         </>
       )}
     </>

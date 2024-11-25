@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookStore.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class ManageController : Controller
+public class LegacyManageController : Controller
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<IdentityUser> _userManager;
@@ -15,7 +15,7 @@ public class ManageController : Controller
     private readonly IUserPhoneNumberStore<IdentityUser> _phoneNumberStore;
     private readonly ApplicationContext _dbContext;
 
-    public ManageController(
+    public LegacyManageController(
         RoleManager<IdentityRole> roleManager,
         UserManager<IdentityUser> userManager,
         IUserStore<IdentityUser> userStore,

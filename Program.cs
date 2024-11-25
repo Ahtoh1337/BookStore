@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,7 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -66,7 +68,7 @@ app.UseAuthorization();
 app.MapIdentityApi<IdentityUser>();
 app.MapRazorPages();
 app.MapControllers();
-app.MapControllerRoute("default", "{controller}/{action=Index}/{Id?}");
+app.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
 
 app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
     [FromBody] object empty) =>
@@ -83,8 +85,9 @@ app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
 // Додавання сутностей до бази даних при першому запуску програми,
 // зокрема ролі: Admin, Finance, Security, Marketing, User,
 // акаунт адміністратора та декілька книг, авторів та жанрів
-await Seed.SeedRolesAndAdminAsync(app.Services.CreateScope().ServiceProvider);
-Seed.SeedDbContext(app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationContext>());
+await Seed.SeedRolesAndAdminAsync(app.Services.CreateScope().ServiceProvider, app.Configuration);
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationContext>();
+Seed.SeedDbContext(context);
 
 
 

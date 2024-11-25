@@ -8,7 +8,7 @@ public class ApplicationContext : IdentityDbContext
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
     {
-
+        Database.EnsureCreated();
     }
 
     public DbSet<Book> Books { get; set; }

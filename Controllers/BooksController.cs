@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers;
 
-public class BooksController : Controller
+public class LegacyBooksController : Controller
 {
     private ApplicationContext _dbContext;
-    public BooksController(ApplicationContext dbContext)
+    public LegacyBooksController(ApplicationContext dbContext)
     {
         _dbContext = dbContext;
     }

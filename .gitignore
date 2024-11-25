@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 
 
 app.db*
+appsettings.Production.json

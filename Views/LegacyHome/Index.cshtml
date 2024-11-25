@@ -6,7 +6,7 @@
     <h1 class="display-4">Welcome</h1>
     @if (User.IsInRole("Admin"))
     {
-        <p><a asp-action="Index" asp-controller="Manage">Manage site</a></p>
+        <p><a asp-action="Index" asp-controller="LegacyManage">Manage site</a></p>
     }
     @if (User.IsInRole("Finance"))
     {

@@ -28,7 +28,7 @@ export function NavMenu() {
             BookStore
           </NavbarBrand>
           {userContext.currentUser && (
-            <NavbarText>Welcome, {userContext.currentUser}</NavbarText>
+            <NavbarText>Welcome, <Link to={`/user/${userContext.currentUser}`}>{userContext.currentUser}</Link></NavbarText>
           )}
           <NavbarToggler
             onClick={() => setCollapsed(!collapsed)}
